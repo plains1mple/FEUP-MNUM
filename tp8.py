@@ -49,13 +49,29 @@ def int_dupla_Trapezio(f,a0,b0,af,bf):
 #print(int_dupla_Trapezio(f,0,0,0.5,0.5))
 
 #not working
-def Euler(f, a, b, h):
-    x = a
-    y = f(a,a)
-    while (x < b):
-        x+=h
-        y+= f(x,y)*h
-    return y
+def Euler(f,x0,y0,xf,h):
+    xn = x0
+    yn = y0
+    xn += h
+    yn += h*f(x0,y0)
+    while (xn<xf):
+        y0 = yn
+        x0 = xn
+        xn += h
+        yn += h*f(x0,y0)
+    return yn
 
+
+def RK2(x0,xf,y0,h,f):
+    xn = x0
+    yn = y0
+    xn = x0 + h
+    yn = y0 + h*f(x0+h/2,y0+(h/2)*f(x0,y0))
+    while xn < xf:
+        x0 = xn
+        y0 = yn
+        xn = x0 + h
+        yn = y0 + h*f(x0+h/2,y0+(h/2)*f(x0,y0))
+    return yn
 
 #print(Euler(f1,0,1.4,0.1))
