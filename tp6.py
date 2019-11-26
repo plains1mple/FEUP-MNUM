@@ -20,6 +20,37 @@ Created on Thu Oct 24 10:41:00 2019
 #b = [0,6,11]
 #print(eliminacao(a,b))
 
+#working code para gauss elimination:
+
+def Gauss_Elim(matrix):
+    rows = len(matrix)
+    cols = len(matrix[0])
+    sol = [None for i in range(cols-1)]
+    for i in range(rows):
+        maxEl = abs(matrix[i][i]);
+        maxRow = i;
+        for k in range (i+1, rows):
+            if abs(matrix[k][i] > maxEl):
+                maxEl = abs(matrix[k][i]);
+                maxRow = k;
+        for k in range(i, cols):
+            tmp = matrix[maxRow][k]
+            matrix[maxRow][k] = matrix[i][k]
+            matrix[i][k] = tmp
+        for k in range(i+1, rows):
+            c = -matrix[k][i]/matrix[i][i]
+            for j in range(i, cols):
+                if i==j:
+                    matrix[k][j] = 0
+                else:
+                    matrix[k][j] += c * matrix[i][j]
+    for i in range(rows-1, -1, -1):
+        sol[i] = matrix[i][rows]/matrix[i][i]
+        for k in range(i-1, -1, -1):
+            matrix[k][rows] -= matrix[k][i] * sol[i]
+    return sol
+
+
 def fazerlistas(A):
     aux = [0 for i in range(len(A))]
     return [aux for i in range(len(A[0]))]
