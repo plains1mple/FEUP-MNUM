@@ -9,6 +9,9 @@ import math
 def func(x,y):
     return math.cos(x)
 
+def f1(x):
+    return math.cos(x)
+
 def RK4(f, x0, xf, y0, h):
     yn = y0
     xn = x0
@@ -25,4 +28,22 @@ def RK4(f, x0, xf, y0, h):
             break
     return yn
 
-print(RK4(func, 0, 1, 0, 1))
+print(RK4(func, 0, 3, 0, 1))
+
+import matplotlib.pyplot as plot
+
+def floatrange(it0, itf, step = 0.1):
+    result = []
+    while it0 < itf:
+        result.append(it0)
+        it0+=step
+    return result
+
+def drawplot(f, x0, xf, step = 0.1):
+    xlist = floatrange(x0, xf, step)
+    ylist = []
+    for i in xlist:
+        ylist.append(f(i))
+    plot.plot(xlist, ylist)    
+    
+#drawplot(f1, -5, 5, 0.01)
